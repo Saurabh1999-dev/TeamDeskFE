@@ -33,10 +33,7 @@ const SignupPage = observer(() => {
       navigate('/login');
     } catch (err: unknown) {
       if (err && typeof err === 'object' && 'response' in err) {
-        // TypeScript doesn’t know what err.response is exactly,
-        // so use a type assertion or check further if needed:
-        // @ts-ignore or more precise typing could be added
-        setError((err as any).response?.data?.message || 'Signup failed');
+        setError((err as { response?: { data?: { message?: string } } }).response?.data?.message || 'Signup failed');
       } else {
         setError('Signup failed');
       }

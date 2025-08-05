@@ -9,13 +9,14 @@ const LoginPage = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    
+
     try {
       const response = await login(email, password);
       localStorage.setItem('token', response.data.token);
       navigate('/')
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Login failed');
+    } catch (err: unknown) {
+      const apiError = err as { response?: { data?: { message?: string } } };
+      setError(apiError.response?.data?.message || 'Login failed');
     }
   };
 
