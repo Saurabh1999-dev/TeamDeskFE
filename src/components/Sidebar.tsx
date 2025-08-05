@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import logo from '../Images/logo.png'
+import logo from '../images/logo.png'
 
 const navItems = [
     { label: "Dashboard", path: "/" },
