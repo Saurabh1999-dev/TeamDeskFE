@@ -31,9 +31,17 @@ const SignupPage = observer(() => {
       await register(user);
       form.reset();
       navigate('/login');
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Signup failed');
+    } catch (err: unknown) {
+      if (err && typeof err === 'object' && 'response' in err) {
+        // TypeScript doesn’t know what err.response is exactly,
+        // so use a type assertion or check further if needed:
+        // @ts-ignore or more precise typing could be added
+        setError((err as any).response?.data?.message || 'Signup failed');
+      } else {
+        setError('Signup failed');
+      }
     }
+
   };
 
   return (
