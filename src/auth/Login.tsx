@@ -11,11 +11,9 @@ const LoginPage = () => {
     setError('');
     
     try {
-      debugger
       const response = await login(email, password);
       localStorage.setItem('token', response.data.token);
       navigate('/')
-      // router.push('/dashboard');
     } catch (err: any) {
       setError(err.response?.data?.message || 'Login failed');
     }
